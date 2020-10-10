@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Browser Agent</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        Welcome to Browser Agent !!
+        <div id="sse-data">
+             Data received is :
+        </div>
+        
+    </div>
+    <script type="text/javascript">
+        
+        (function(){
+            var api = "https://on-klug.in/";
+            var socket = io.connect(api);
+            
+           
+            function webSocket(key, domainName) {       
+                   
+                    debugger
+                    socket.emit("key", {
+                        key: key,
+                        domainName: domainName
+                    });
+
+                    socket.on("response", (data) => {
+                        console.log(data);
+                    })
+
+                    socket.on("disconnect", (data) => {
+                        console.log("disconnected");
+                        socket.disconnect();
+                    })
+            };
+
+            function register(key,domainName){
+                var http = new XMLHttpRequest();
+                var url = api + 'api/register/';
+                url = url + "?Key=" + key  + "&DomainName=" + domainName;
+                
+                http.open('GET', url, true);
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4) {
+                        if(http.status == 200) {
+                            var returned_data = JSON.parse(http.responseText);
+                            if(!returned_data.length) {
+                                var data = {
+                                    Key : key,
+                                    DomainName : domainName
+                                };
+                                http.open('POST', url, true);
+                                http.onreadystatechange = function() {//Call a function when the state changes.
+                                    if(http.readyState == 4 && http.status == 200) {
+                                        webSocket(key, domainName);
+                                    }
+                                }
+                                http.send(JSON.stringify(data));
+
+                            }    
+                        } else {
+                            // API has failed
+                        }
+                        
+                    }
+                }
+                http.send(null);
+               
+            }
+
+            /*
+                Update key and domain name here
+            */
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = "1234";
+            const domainName = "klugheit";
+            register(key, domainName);
+
+        })();
+
+        
+    </script>
+</body>
+
+</html>

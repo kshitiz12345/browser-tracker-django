@@ -1,0 +1,24 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 25, 2020 - 16:14:15
+Django version 3.0.8, using settings 'browser_agent.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+Traceback (most recent call last):
+  File "/usr/local/Cellar/python@3.8/3.8.3_1/Frameworks/Python.framework/Versions/3.8/lib/python3.8/wsgiref/handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+  File "/Users/ksagarwa/Desktop/Code repo/browser_agent/browser-agent/browser_agent_env/lib/python3.8/site-packages/django/contrib/staticfiles/handlers.py", line 68, in __call__
+    return self.application(environ, start_response)
+TypeError: __call__() missing 1 required positional argument: 'send'
+[25/Jul/2020 16:14:28] "GET / HTTP/1.1" 500 59
+/Users/ksagarwa/Desktop/Code repo/browser_agent/browser-agent/browser_agent_env/lib/python3.8/site-packages/django/core/paginator.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 25, 2020 - 16:14:23
+Django version 3.0.8, using settings 'browser_agent.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
